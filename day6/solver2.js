@@ -7,15 +7,14 @@ var answer = 0;
 
 var seen = new Map();
 
-
+console.time("start")
 data.forEach((element,index) => {
     answer += generator(element-1, days)
 });
 
 
-
 console.log(answer)
-
+console.timeEnd("start")
 
 
 
@@ -41,7 +40,7 @@ function generator(size, days) {
         }
         days -= 7;
     }
-    if (totals > 44571) {
+    if (totals > 0) {
         seen.set([size, orgDays].join(','), totals);
     }
     if (totals > 445710000) {
