@@ -29,9 +29,9 @@ let hexToDec = {
 data = data.map(char => hexToDec[char]).join('');
 
 
-calculateMessage(data);
+let val = calculateMessage(data);
 
-console.log(versions.reduce((a, b) => a + b, 0))
+console.log(val[1])
 
 
 
