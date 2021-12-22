@@ -21,9 +21,10 @@ for (let index = 1; index < data.length; index++) {
     }
 
 }
-console.log(JSON.stringify(myArr))
+console.log("final: " + JSON.stringify(myArr))
 
-console.log("hej")
+console.log(magnitudeHelper(myArr))
+
 
 
 
@@ -82,28 +83,34 @@ function explode() {
                         continue;
                     };
                     if (!exploded) {
-                    var leftVal = myArr[a][b][c][d][0];
-                    switch (leftMost.length) {
-                        case 1:
-                            myArr[leftMost[0]] += leftVal;
+                        var leftVal = myArr[a][b][c][d][0];
+                        switch (leftMost.length) {
+                            case 1:
+                                myArr[leftMost[0]] += leftVal;
+                                break;
+                            case 2:
+                                myArr[leftMost[0]][leftMost[1]] += leftVal;
+                                break;
+                            case 3:
+                                myArr[leftMost[0]][leftMost[1]][leftMost[2]] += leftVal;
+                                break;
+                            case 4:
+                                myArr[leftMost[0]][leftMost[1]][leftMost[2]][leftMost[3]] += leftVal;
+                                break;
+                            default:
+                                break;
+                        }
+                        rightVal = myArr[a][b][c][d][1];
+                        myArr[a][b][c][d] = 0;
+                        found = true;
+                        exploded = true;
+                    } else {
+                        if (found) {
+                            myArr[a][b][c][d][0] += rightVal;
+                            found = false;
                             break;
-                        case 2:
-                            myArr[leftMost[0]][leftMost[1]] += leftVal;
-                            break;
-                        case 3:
-                            myArr[leftMost[0]][leftMost[1]][leftMost[2]] += leftVal;
-                            break;
-                        case 4:
-                            myArr[leftMost[0]][leftMost[1]][leftMost[2]][leftMost[3]] += leftVal;
-                            break;
-                        default:
-                            break;
+                        }
                     }
-                    rightVal = myArr[a][b][c][d][1];
-                    myArr[a][b][c][d] = 0;
-                    found = true;
-                    exploded = true;
-                }
                 }
             }
         }
@@ -142,4 +149,15 @@ function split() {
 
     }
     return false;
+}
+
+
+function magnitudeHelper(arr) {
+    var left = 0;
+    var right = 0;
+    if (Array.isArray(arr[0])) left = magnitudeHelper(arr[0])*3;
+    else left = arr[0]*3;
+    if (Array.isArray(arr[1])) right = magnitudeHelper(arr[1])*2;
+    else right = arr[1]*2;
+    return left+right;
 }
